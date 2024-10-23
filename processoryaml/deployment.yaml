@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ota-processors
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ota-processor
+  template:
+    metadata:
+      labels:
+        app: ota-processor
+    spec:
+      containers:
+      - name: ota-proc-container
+        image: 795914468022.dkr.ecr.us-east-1.amazonaws.com/online-travel-agency:proc-latest-rust
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8090

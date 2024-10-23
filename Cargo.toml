@@ -1,0 +1,13 @@
+[workspace]
+
+members = [ "applib", "processor", "supplier", "adapter"]
+
+[workspace.dependencies]
+actix-web = "4"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json"] }
+quick-xml = "0.32.0"
+openssl = { version = "0.10.64", features = ["vendored"] } 
+
+[profile.release]
+lto = "fat"

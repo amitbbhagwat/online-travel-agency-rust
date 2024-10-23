@@ -1,0 +1,35 @@
+sudo docker build -f dockerfileprocessor -t processor .
+
+sudo docker build -f dockerfilesupplier -t supplier .
+
+
+sudo docker run -p 8090:8090 processor /bash
+
+
+sudo docker run -p 8080:8080 supplier /bash
+
+sudo docker run -p 9000:9000 adapter/bash
+
+
+sudo docker tag supplier 172.27.56.53:5000/supplierimage
+
+sudo docker push 172.27.56.53:5000/supplierimage
+
+
+sudo docker tag processor 172.27.56.53:5000/processorimage
+
+sudo docker push 172.27.56.53:5000/supplierimage
+
+
+chnage yaml files 
+
+kubectl apply -f service.yaml
+
+kubectl apply -f deployment.yaml
+
+add if required
+sudo apt-get install pkg-config libssl-dev
+
+
+
+

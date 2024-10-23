@@ -1,0 +1,24 @@
+FROM rust:1.79.0-bullseye as builder
+
+WORKDIR /app
+
+# Copy the source from the current directory to the Working Directory inside the container
+COPY . .
+
+
+# This build step will cache your dependencies
+RUN cargo build --release
+
+FROM rust:1.79.0-bullseye
+
+
+WORKDIR /app/adapter
+
+COPY --from=builder /app/target/release .
+
+COPY --from=builder /app/adapter/app_adpater.ini ./app_adpater.ini
+# Expose port 9000 to the outside world
+EXPOSE 9000
+
+# Set the binary as the entrypoint of the container
+ENTRYPOINT ["./adapter"]
